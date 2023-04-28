@@ -1,0 +1,30 @@
+################################
+####    PHP              ######
+################################
+
+php -S 127.0.0.1:8000
+sudo apt install php-cli php-curl php-gd php-mbstring php-sqlite3 php-xml php-mysql
+
+sudo mv composer.phar /usr/local/bin/composer
+composer install
+
+################################
+####    MYSQL             ######
+################################
+sudo apt install mysql-server
+sudo service mysql start
+
+CREATE DATABASE drupalmulti;
+CREATE USER 'drupalmulti'@'127.0.0.1' IDENTIFIED BY 'password';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, INDEX, DROP, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES ON drupalmulti.* TO 'drupalmulti'@'127.0.0.1';
+
+################################
+####    DRUPAL            ######
+################################
+wget https://www.drupal.org/download-latest/tar.gz
+git clone https://git.drupalcode.org/project/drupal.git && cd drupal && composer install
+php ./core/scripts/drupal quick-start --help
+
+php -d memory_limit=256M ./core/scripts/drupal quick-start demo_umami
+
+
