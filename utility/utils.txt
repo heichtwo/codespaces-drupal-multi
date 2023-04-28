@@ -17,6 +17,17 @@ sudo service mysql start
 CREATE DATABASE drupalmulti;
 CREATE USER 'drupalmulti'@'127.0.0.1' IDENTIFIED BY 'password';
 GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, INDEX, DROP, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES ON drupalmulti.* TO 'drupalmulti'@'127.0.0.1';
+GRANT ALL PRIVILEGES ON drupalmulti.* TO 'drupalmulti'@'127.0.0.1' WITH GRANT OPTION;
+
+Export:
+mysqldump -u drupalmulti -ppassword -h127.0.0.1 --databases drupalmulti > drupalmulti.sql
+
+mysqldump -u root -p --all-databases > alldb.sql
+mysqldump -u root -p --opt --all-databases > alldb.sql
+mysqldump -u root -p --all-databases --skip-lock-tables > alldb.sql
+
+Import:
+mysql -u root -p < alldb.sql
 
 ################################
 ####    DRUPAL            ######
